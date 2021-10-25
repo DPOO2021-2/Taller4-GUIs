@@ -21,6 +21,9 @@ public class PanelOpciones extends JPanel
 
 	public PanelOpciones()
 	{
+		Color colorAzul = new Color(80, 150, 255);
+		this.setBackground(colorAzul);
+		
 		setLayout(new GridLayout(1, 4));
 		
 		dificultades = new SeleccionMultiple();
@@ -31,6 +34,7 @@ public class PanelOpciones extends JPanel
 		
 		JLabel dL = new JLabel();
 		dL.setText("Dificultad:");
+
 		
 		
 		JComboBox combo = new JComboBox();

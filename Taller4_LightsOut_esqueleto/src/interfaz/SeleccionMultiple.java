@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
@@ -18,22 +19,27 @@ public class SeleccionMultiple extends JPanel implements ChangeListener
     
     public SeleccionMultiple()
     {
+		Color colorAzul = new Color(80, 150, 255);
+		
     	setLayout(new GridLayout(1, 3));
     	
     	bg=new ButtonGroup();
     	
         boton_f=new JRadioButton("Fácil");
         boton_f.addChangeListener(this);
+        boton_f.setBackground(colorAzul);
         add(boton_f);
         bg.add(boton_f);
         
         boton_m=new JRadioButton("Medio");
         boton_m.addChangeListener(this);
+        boton_m.setBackground(colorAzul);
         add(boton_m);
         bg.add(boton_m);
        
         boton_d=new JRadioButton("Difícil");
         boton_d.addChangeListener(this);
+        boton_d.setBackground(colorAzul);
         add(boton_d);
         bg.add(boton_d);
     }
