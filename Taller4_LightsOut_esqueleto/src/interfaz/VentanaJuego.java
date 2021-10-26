@@ -1,12 +1,21 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import com.formdev.flatlaf.FlatLightLaf;
 
 import uniandes.dpoo.taller4.modelo.Tablero;
 import uniandes.dpoo.taller4.modelo.Top10;
@@ -38,18 +47,20 @@ public class VentanaJuego extends JFrame
 		
 		
 		
-//		cambiarJugador();
+
+		String nombre_jugador = pedirNombreJugador();
 		
 		
 		// el primer tablero se pone en tamaño=5, dificultad = facil
-		pTablero = new PanelTablero(3, 1);
+		
+		pTablero = new PanelTablero(this, 3, 1);
 		//---
 		
 		
 		
 		
-		pMenu = new PanelMenu();
-		pJugadas = new PanelJugadas(pTablero.getTablero().darJugadas(), "A");
+		pMenu = new PanelMenu(this);
+		pJugadas = new PanelJugadas(pTablero.getTablero().darJugadas(), nombre_jugador);
 		pOpciones = new PanelOpciones();
 		
 		pack();
@@ -70,48 +81,49 @@ public class VentanaJuego extends JFrame
 		add(pTablero, BorderLayout.CENTER);
 		add(pOpciones, BorderLayout.NORTH);
 		add(pJugadas, BorderLayout.SOUTH);
+		
+		
+		
+		
+
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent e)
+			{
+				try {
+					salvarTop10();
+				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		
+	}
+	
+	public void salvarTop10() throws FileNotFoundException, UnsupportedEncodingException
+	{
+		top10.salvarRecords(new File("data/top10.csv"));
 	}
 	
 	public String pedirNombreJugador() 
 	{
+		String nombre = JOptionPane.showInputDialog(null, "Introduce tu nombre:");
 		
 		//abrir nueva ventana con textbox que pide el nombre y aqui se retorna
-		return null;
+		return nombre;
 	}
 
-	public static void main(String[] args) 
-	{
-		new VentanaJuego();
-		
-	}
-	
 	
 	public void cambiarJugador()
 	{
 		String nombre_jugador = pedirNombreJugador();
-		pJugadas.actualizarJugador(nombre_jugador);
-		nuevoTablero();
 		
-		
-		//esto debe llamarse cuando se oprime el boton "cambiarjugador"
-	}
-
-	public void nuevoTablero() 
-	{
-		Integer dif = pOpciones.getDificultad_Entero();
-		if (dif.equals(null))
+		if(nuevoTablero())
 		{
-			//mostrar un JLabel textual que diga: debes escoger primeor la dificultad
+			pJugadas.actualizarJugador(nombre_jugador);
 		}
-		else
-		{
-			pTablero = new PanelTablero(pOpciones.getTamaño(), dif);
-			add(pTablero, BorderLayout.CENTER);
-		}
-		
-		//esto debe llamarse cuando se oprime el boton "nuevo"
-		
-		
 	}
 	
 	public void reiniciar()
@@ -119,14 +131,35 @@ public class VentanaJuego extends JFrame
 		pTablero.getTablero().reiniciar();
 		pTablero.actualizarse();
 		
-		//esto debe llamarse cuando se oprime el boton "reiniicar"
+	}
+
+	public boolean nuevoTablero() 
+	{
+		Integer dif = pOpciones.getDificultad_Entero();
+		if (dif == null)
+		{
+			//mostrar un JLabel textual que diga: debes escoger primeor la dificultad
+			JOptionPane.showMessageDialog(this, "Debes escoger primero la dificultad.","Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			return false;
+			
+		}
+		else
+		{
+			pTablero = new PanelTablero(this, pOpciones.getTamaño(), dif);
+			add(pTablero, BorderLayout.CENTER);
+			return true;
+		}
+		
+		
 		
 	}
+	
+	
 	
 	public void mostrarTop10()
 	{
 		//sacar una nueva ventana que muestre el top10
-		//esto se debe llamar cuando se oprime el boton "top10"
 	}
 	
 	public void jugar()
@@ -136,6 +169,8 @@ public class VentanaJuego extends JFrame
 		//en cada jugada: por jeemplo jugadas en el panel pJugadas (creo que es solo esa)
 		
 	}
+
+	
 	
 	
 	
@@ -151,9 +186,9 @@ public class VentanaJuego extends JFrame
 	 * 
 	 * 
 	 * domingo 8:30 pm: 
-	 * 1. falta hacer los setAction Command de los botones del Este (panelMenu)
-	 * 2. falat hacer la ventana que dice escoge dificultad : linea103
-	 * 3. Falta hacer la ventana que pide el nombre del jugador nuevo : linea78
+	 * 
+	 * 
+	 * 
 	 * 4. Falta hacer la ventana que muestra el top 10
 	 * 
 	 * 
@@ -164,5 +199,14 @@ public class VentanaJuego extends JFrame
 	 * 
 	 * 
 	 */
+	
+	
+	public static void main(String[] args) 
+	{
+		new VentanaJuego();
+		
+		FlatLightLaf.install();
+		
+	}
 	
 }

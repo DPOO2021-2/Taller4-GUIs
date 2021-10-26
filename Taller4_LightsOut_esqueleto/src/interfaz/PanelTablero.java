@@ -9,8 +9,11 @@ public class PanelTablero extends JPanel
 {
 	private Tablero tablero;
 	
-	public PanelTablero(int tamaño, int dificultad) 
+	private VentanaJuego padre;
+	
+	public PanelTablero(VentanaJuego padre, int tamaño, int dificultad) 
 	{
+		this.padre = padre;
 		Tablero nuevo_tablero = new Tablero(tamaño);
 		nuevo_tablero.desordenar(dificultad);
 		this.tablero = nuevo_tablero;

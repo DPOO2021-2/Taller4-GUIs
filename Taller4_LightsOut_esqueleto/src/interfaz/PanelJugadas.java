@@ -53,6 +53,7 @@ public class PanelJugadas extends JPanel
 	public void actualizarJugador(String jugador)
 	{
 		this.nombre = jugador;
+		nombreL.setText(jugador);
 	}
 	
 	

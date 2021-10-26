@@ -21,6 +21,7 @@ public class PanelOpciones extends JPanel
 
 	public PanelOpciones()
 	{
+		this.tamaño = 3;
 		Color colorAzul = new Color(80, 150, 255);
 		this.setBackground(colorAzul);
 		
@@ -63,9 +64,13 @@ public class PanelOpciones extends JPanel
 	
 	public Integer getDificultad_Entero()
 	{
-		Integer dif = 1;
+		Integer dif = null;
 		String dific = dificultades.getDificultad();
-		if("medio".equals(dific))
+		if("facil".equals(dific))
+		{
+			dif = 1;
+		}
+		else if("medio".equals(dific))
 		{
 			dif = 2;
 		}
