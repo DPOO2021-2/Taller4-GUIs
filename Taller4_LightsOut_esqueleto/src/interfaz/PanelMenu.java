@@ -21,6 +21,14 @@ public class PanelMenu extends JPanel
 		
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
+		JPanel panel3 = new JPanel();
+		JPanel panel4 = new JPanel();
+		JPanel panel5 = new JPanel();
+		JPanel panel6 = new JPanel();
+		
+		JPanel panelm1 = new JPanel();
+		JPanel panelm2 = new JPanel();
+		JPanel panelm3 = new JPanel();
 	
 		boton1 = new JButton("NUEVO");
 		boton1.setBackground(colorAzul);
@@ -31,12 +39,19 @@ public class PanelMenu extends JPanel
 		boton4 = new JButton("CAMBIAR JUGADOR");
 		boton4.setBackground(colorAzul);
 		
-		setLayout(new GridLayout(6, 1));
+		setLayout(new GridLayout(13, 1));
 		add(panel);
-		add(boton1);
-		add(boton2);
-		add(boton3);
-		add(boton4);
 		add(panel2);
+		add(panel3);
+		add(boton1);
+		add(panelm1);
+		add(boton2);
+		add(panelm2);
+		add(boton3);
+		add(panelm3);
+		add(boton4);
+		add(panel4);
+		add(panel5);
+		add(panel6);
 	}
 }
