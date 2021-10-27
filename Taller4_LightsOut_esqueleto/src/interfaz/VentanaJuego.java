@@ -1,16 +1,15 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.UnsupportedEncodingException;
 
-import javax.swing.JButton;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -34,6 +33,8 @@ public class VentanaJuego extends JFrame
 	private PanelJugadas pJugadas;
 	private PanelOpciones pOpciones;
 	
+	private Dialog10 ventana_top10;
+	
 
 	
 	
@@ -44,6 +45,8 @@ public class VentanaJuego extends JFrame
 		top10 = new Top10();
 		top10.cargarRecords(new File("data/top10.csv"));
 		
+		ventana_top10 = new Dialog10(this);
+		
 		
 		
 		
@@ -53,7 +56,7 @@ public class VentanaJuego extends JFrame
 		
 		// el primer tablero se pone en tamaño=5, dificultad = facil
 		
-		pTablero = new PanelTablero(this, 3, 1);
+		pTablero = new PanelTablero(this, 5, 3);
 		//---
 		
 		
@@ -129,7 +132,8 @@ public class VentanaJuego extends JFrame
 	public void reiniciar()
 	{
 		pTablero.getTablero().reiniciar();
-		pTablero.actualizarse();
+		pTablero.repaint();
+		pJugadas.actualizarJugadas(0);
 		
 	}
 
@@ -146,8 +150,8 @@ public class VentanaJuego extends JFrame
 		}
 		else
 		{
-			pTablero = new PanelTablero(this, pOpciones.getTamaño(), dif);
-			add(pTablero, BorderLayout.CENTER);
+			pTablero.nuevoTablero(pOpciones.getTamaño(), dif);
+			pJugadas.actualizarJugadas(0);
 			return true;
 		}
 		
@@ -160,6 +164,11 @@ public class VentanaJuego extends JFrame
 	public void mostrarTop10()
 	{
 		//sacar una nueva ventana que muestre el top10
+		
+		ventana_top10 = new Dialog10(this);
+		ventana_top10.setVisible(true);
+		
+		
 	}
 	
 	public void jugar()
@@ -168,28 +177,54 @@ public class VentanaJuego extends JFrame
 		// aqui se deben  actualizar toda la info de todos los paneles que cambien
 		//en cada jugada: por jeemplo jugadas en el panel pJugadas (creo que es solo esa)
 		
+		Tablero tablero = pTablero.getTablero();
+		pJugadas.actualizarJugadas(tablero.darJugadas());
+		
+		
+		
+		
+		
+//		se revisa si gano
+		if(tablero.tableroIluminado())
+		{
+			gano();
+		}
+		
+		
 	}
 
 	
+	
+	public void gano() 
+	{
+		// TODO Auto-generated method stub
+		
+		
+		//se debe registrar el record calculandole el puntaje y obteniendo su nombre
+		
+		int puntos = pTablero.getTablero().calcularPuntaje();
+		String nombre = pJugadas.getNombre();
+		
+		if(top10.esTop10(puntos))
+		{
+			top10.agregarRegistro(nombre, puntos);
+		}
+		
+		JOptionPane.showMessageDialog(this, "¡Has ganado, revisa el Top 10 de puntajes!","Felicitaciones",
+				JOptionPane.INFORMATION_MESSAGE);
+		
+		
+	}
+
+	public Top10 getTop10()
+	{
+		return this.top10;
+	}
 	
 	
 	
 	/* cada vez que se llama al metodo local jugar() (falta hacerlo): llamar a pJugadas.actualizarJugadas()
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * domingo 8:30 pm: 
-	 * 
-	 * 
-	 * 
-	 * 4. Falta hacer la ventana que muestra el top 10
 	 * 
 	 * 
 	 * 5. Falta haver todo el PanelTablero por dentro

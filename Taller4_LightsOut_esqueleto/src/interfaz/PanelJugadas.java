@@ -47,13 +47,22 @@ public class PanelJugadas extends JPanel
 	
 	public void actualizarJugadas(Integer jugadas)
 	{
-		this.jugadas = jugadas.toString();
+		String Sjugadas = jugadas.toString();
+		
+		this.jugadas = Sjugadas;
+		
+		jugadasL.setText(Sjugadas);
 	}
 	
 	public void actualizarJugador(String jugador)
 	{
 		this.nombre = jugador;
 		nombreL.setText(jugador);
+	}
+	
+	public String getNombre()
+	{
+		return this.nombre;
 	}
 	
 	

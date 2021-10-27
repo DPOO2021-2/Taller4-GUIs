@@ -21,7 +21,7 @@ public class PanelOpciones extends JPanel
 
 	public PanelOpciones()
 	{
-		this.tamaño = 3;
+		this.tamaño = 5;
 		Color colorAzul = new Color(80, 150, 255);
 		this.setBackground(colorAzul);
 		
@@ -39,7 +39,7 @@ public class PanelOpciones extends JPanel
 		
 		
 		JComboBox combo = new JComboBox();
-		combo.addItem("3x3");
+		
 		combo.addItem("5x5");
 		combo.addItem("7x7");
 		combo.addItem("9x9");
@@ -68,15 +68,15 @@ public class PanelOpciones extends JPanel
 		String dific = dificultades.getDificultad();
 		if("facil".equals(dific))
 		{
-			dif = 1;
+			dif = 3;
 		}
 		else if("medio".equals(dific))
 		{
-			dif = 2;
+			dif = 4;
 		}
 		else if("dificil".equals(dific))
 		{
-			dif = 3;
+			dif = 6;
 		}
 		
 		
