@@ -20,6 +20,10 @@ import uniandes.dpoo.taller4.modelo.Tablero;
 import uniandes.dpoo.taller4.modelo.Top10;
 
 
+// EL DIAGRAMA ESTA EN LA CARPETA DATA
+// Desarrollado por: Sergio Arango y Juan Jose Sierra
+
+
 public class VentanaJuego extends JFrame
 {
 	//modelo:
